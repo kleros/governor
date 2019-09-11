@@ -1,0 +1,22 @@
+[build.environment]
+  YARN_FLAGS='--pure-lockfile'
+  REACT_APP_CONTEXT='staging'
+  REACT_APP_KOVAN_GOVERNOR='0xe20e2C9179Dd69A5fE14B714d84F3067119A04E7'
+  REACT_APP_USER_SETTINGS_URL='https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/user-settings'
+  REACT_APP_JUSTIFICATIONS_URL='https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/justifications'
+
+[context.production.environment]
+  REACT_APP_CONTEXT='production'
+  REACT_APP_USER_SETTINGS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/user-settings'
+  REACT_APP_JUSTIFICATIONS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/justifications'
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "https://kleros-governor.netlify.com/*"
+  to = "https://governor.kleros.io/:splat"
+  status = 301
+  force = true
