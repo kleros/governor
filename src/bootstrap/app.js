@@ -1,12 +1,12 @@
 import '../components/theme.css'
 import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom'
 import { Col, Layout, Menu, Row, Spin, message } from 'antd'
-import { DrizzleProvider } from 'drizzle-react'
+import { DrizzleProvider, Initializer } from './drizzle-react-hooks'
+import drizzle from './drizzle'
 import { Helmet } from 'react-helmet'
 import { ReactComponent as Logo } from '../assets/images/logo.svg'
 import Footer from '../components/footer'
 import React from 'react'
-import drizzleOptions from './drizzle'
 import loadable from '@loadable/component'
 import { register } from './service-worker'
 import styled from 'styled-components/macro'
@@ -91,36 +91,46 @@ export default () => (
         rel="stylesheet"
       />
     </Helmet>
-    <DrizzleProvider options={drizzleOptions}>
-      <BrowserRouter>
-        <Layout>
-          <StyledLayoutSider breakpoint="md" collapsedWidth="0">
-            <Menu theme="dark">{MenuItems}</Menu>
-          </StyledLayoutSider>
+    <DrizzleProvider drizzle={drizzle}>
+      <Initializer
+        error={<C404 Web3 />}
+        loadingContractsAndAccounts={<C404 Web3 />}
+        loadingWeb3={<StyledSpin tip="Connecting to your Web3 provider." />}
+      >
+        <BrowserRouter>
           <Layout>
-            <Layout.Header>
-              <Row>
-                <StyledCol md={3} sm={16} xs={0}>
-                  <Logo />
-                </StyledCol>
-                <Col md={16} xs={0}>
-                  <StyledMenu mode="horizontal" theme="dark">
-                    {MenuItems}
-                  </StyledMenu>
-                </Col>
-                <StyledCol md={5} sm={8} xs={24} />
-              </Row>
-            </Layout.Header>
-            <StyledLayoutContent>
-              <Switch>
-                <Route component={Home} exact path="/" />
-                <Route component={C404} />
-              </Switch>
-            </StyledLayoutContent>
-            <Footer />
+            <StyledLayoutSider breakpoint="md" collapsedWidth="0">
+              <Menu theme="dark">{MenuItems}</Menu>
+            </StyledLayoutSider>
+            <Layout>
+              <Layout.Header>
+                <Row>
+                  <StyledCol md={3} sm={16} xs={0}>
+                    <Logo />
+                  </StyledCol>
+                  <Col md={16} xs={0}>
+                    <StyledMenu mode="horizontal" theme="dark">
+                      {MenuItems}
+                    </StyledMenu>
+                  </Col>
+                  <StyledCol md={5} sm={8} xs={24} />
+                </Row>
+              </Layout.Header>
+              <StyledLayoutContent>
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    component={Home}
+                  />
+                  <Route component={C404} />
+                </Switch>
+              </StyledLayoutContent>
+              <Footer />
+            </Layout>
           </Layout>
-        </Layout>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Initializer>
     </DrizzleProvider>
   </>
 )

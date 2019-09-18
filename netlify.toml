@@ -4,11 +4,13 @@
   REACT_APP_KOVAN_GOVERNOR='0xe20e2C9179Dd69A5fE14B714d84F3067119A04E7'
   REACT_APP_USER_SETTINGS_URL='https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/user-settings'
   REACT_APP_JUSTIFICATIONS_URL='https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/justifications'
+  REACT_APP_WEB3_FALLBACK_URL='wss://kovan.infura.io/v3/4e4cf0a867c84ff382e22709aadc1e50'
 
 [context.production.environment]
   REACT_APP_CONTEXT='production'
   REACT_APP_USER_SETTINGS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/user-settings'
   REACT_APP_JUSTIFICATIONS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/justifications'
+  REACT_APP_WEB3_FALLBACK_URL='wss://kovan.infura.io/v3/4e4cf0a867c84ff382e22709aadc1e50'
 
 [[redirects]]
   from = "/*"
