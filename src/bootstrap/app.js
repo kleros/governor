@@ -118,11 +118,7 @@ export default () => (
               </Layout.Header>
               <StyledLayoutContent>
                 <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    component={Home}
-                  />
+                  <Route component={Home} exact path="/" />
                   <Route component={C404} />
                 </Switch>
               </StyledLayoutContent>

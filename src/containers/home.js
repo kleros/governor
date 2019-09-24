@@ -30,7 +30,7 @@ class Home extends PureComponent {
           }
           title="Welcome to Kleros Governor"
         />
-      <SubmittedListsCard />
+        <SubmittedListsCard />
       </>
     )
   }

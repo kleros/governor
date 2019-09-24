@@ -16,9 +16,9 @@ const options = {
   },
   web3: {
     fallback: {
-      type: "ws",
-      url: "",
-    },
-  },
+      type: 'ws',
+      url: ''
+    }
+  }
 }
 export default new Drizzle(options, generateStore(options))
