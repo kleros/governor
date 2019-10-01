@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import TopBanner from '../components/top-banner'
 import SubmittedListsCard from '../components/submitted-lists-card'
+import List from '../components/list'
 
 const StyledButton = styled(Button)`
   box-shadow: none;
@@ -31,6 +32,7 @@ class Home extends PureComponent {
           title="Welcome to Kleros Governor"
         />
         <SubmittedListsCard />
+        <List />
       </>
     )
   }
