@@ -25,7 +25,7 @@ class Home extends PureComponent {
                 style={{ maxWidth: '150px' }}
                 type="primary"
               >
-                Create New List
+                <Link to="/new-list">Create New List</Link>
               </StyledButton>
             </Link>
           }
