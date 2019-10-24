@@ -2,6 +2,9 @@ import { Button, Card, Row, Col, Form, Input } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 
+import List from './list'
+import ActionFooter from './action-footer'
+
 const BackgrounCard = styled(Card)`
   background: linear-gradient(101.5deg, #4D00B4 47.51%, #6501B4 95.02%);
   box-shadow: 0px 6px 36px #BC9CFF;
@@ -78,8 +81,15 @@ const AddTx = Form.create()(({ form }) => {
           </Col>
         </Row>
       </BackgrounCard>
+      <List />
+      <ActionFooter
+        action={()=>{}}
+        buttonText={'Submit List'}
+        heading={'Submit the list of governance decisions to be executed'}
+        subtext={'After submitting the list you have 1 hour to withdraw it if you notice someone has already posted a similar list. This way you can avoid getting into a dispute.'}
+        tertiaryText={'Deposit required = X ETH'}
+      />
     </Form>
-
   )
 })
 
