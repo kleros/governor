@@ -1,6 +1,7 @@
 import React from 'react'
 import AragonBanner from '../components/aragon-banner'
 import TopBanner from '../components/top-banner'
+import AddTx from '../components/add-tx'
 
 const NewList = ({}) => {
   return (
@@ -10,6 +11,7 @@ const NewList = ({}) => {
         title="New List"
       />
       <AragonBanner />
+      <AddTx />
     </>
   )
 }

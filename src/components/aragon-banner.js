@@ -5,10 +5,11 @@ import styled from 'styled-components'
 import AragonLogo from '../assets/images/aragon-logo.png'
 
 const AragonBannerContainer = styled.div`
-  min-height: 82px;
-  box-shadow: 0px 6px 36px #BC9CFF;
   border-radius: 12px;
+  box-shadow: 0px 6px 36px #BC9CFF;
   color: #4D00B4;
+  margin-bottom: 25px;
+  min-height: 82px;
 `
 const AragonBannerLeft = styled(Col)`
   background: #fff;
