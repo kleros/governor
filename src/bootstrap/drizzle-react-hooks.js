@@ -138,6 +138,7 @@ export const DrizzleProvider = ({ children, drizzle }) => {
             listener: undefined,
             subscriptions: []
           }
+          console.log(eventName)
           contract.getPastEvents(eventName, eventOptions).then(pastEvents => {
             eventsCache.current[cacheKey].events = pastEvents
             eventsCache.current[cacheKey].subscriptions.forEach(subscription =>

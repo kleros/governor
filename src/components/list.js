@@ -8,23 +8,29 @@ const SubmitterDiv = styled.div`
   color: #fff;
 `
 
-const List = () => {
+const List = ({ txs = [], number = 1, submitter = '' }) => {
   return (
-    <TitledListCard
-      title={'List 1'}
-      prefix={'Txs'}
-      extra={(
-        <SubmitterDiv>Submitter</SubmitterDiv>
-      )}
-    >
-      <Row>
-        { [1,2,3].map(num => (
-          <Col lg={12}>
-            <TxCard number={num} />
-          </Col>
-        ))}
-      </Row>
-    </TitledListCard>
+    <>
+      {
+        txs.length > 0 ? (
+          <TitledListCard
+            title={`List ${number}`}
+            prefix={'Txs'}
+            extra={(
+              <SubmitterDiv>Submitter {submitter}</SubmitterDiv>
+            )}
+          >
+            <Row>
+              { txs.map((tx, i) => (
+                <Col lg={12}>
+                  <TxCard tx={tx} number={i+1} />
+                </Col>
+              ))}
+            </Row>
+          </TitledListCard>
+        ) : ''
+      }
+    </>
   )
 }
 

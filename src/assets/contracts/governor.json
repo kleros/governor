@@ -5,6 +5,24 @@
   		"constant": false,
   		"inputs": [
   			{
+  				"name": "_arbitrator",
+  				"type": "address"
+  			},
+  			{
+  				"name": "_arbitratorExtraData",
+  				"type": "bytes"
+  			}
+  		],
+  		"name": "changeArbitrator",
+  		"outputs": [],
+  		"payable": false,
+  		"stateMutability": "nonpayable",
+  		"type": "function"
+  	},
+  	{
+  		"constant": false,
+  		"inputs": [
+  			{
   				"name": "_loserMultiplier",
   				"type": "uint256"
   			}
@@ -16,77 +34,14 @@
   		"type": "function"
   	},
   	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "arbitratorExtraData",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "bytes"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
   		"constant": false,
   		"inputs": [
   			{
-  				"name": "_beneficiary",
-  				"type": "address"
-  			},
-  			{
-  				"name": "_session",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_round",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_cursor",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_count",
+  				"name": "_sharedMultiplier",
   				"type": "uint256"
   			}
   		],
-  		"name": "withdrawFeesAndRewards",
-  		"outputs": [],
-  		"payable": false,
-  		"stateMutability": "nonpayable",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "_session",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "getSubmittedLists",
-  		"outputs": [
-  			{
-  				"name": "submittedLists",
-  				"type": "uint256[]"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": false,
-  		"inputs": [
-  			{
-  				"name": "_withdrawTimeout",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "changeWithdrawTimeout",
+  		"name": "changeSharedMultiplier",
   		"outputs": [],
   		"payable": false,
   		"stateMutability": "nonpayable",
@@ -110,15 +65,11 @@
   		"constant": false,
   		"inputs": [
   			{
-  				"name": "_disputeID",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_ruling",
+  				"name": "_submissionTimeout",
   				"type": "uint256"
   			}
   		],
-  		"name": "rule",
+  		"name": "changeSubmissionTimeout",
   		"outputs": [],
   		"payable": false,
   		"stateMutability": "nonpayable",
@@ -139,95 +90,26 @@
   		"type": "function"
   	},
   	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "expendableFunds",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
+  		"constant": false,
   		"inputs": [
   			{
-  				"name": "_session",
+  				"name": "_withdrawTimeout",
   				"type": "uint256"
-  			},
-  			{
-  				"name": "_round",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_contributor",
-  				"type": "address"
   			}
   		],
-  		"name": "getContributions",
-  		"outputs": [
-  			{
-  				"name": "contributions",
-  				"type": "uint256[]"
-  			}
-  		],
+  		"name": "changeWithdrawTimeout",
+  		"outputs": [],
   		"payable": false,
-  		"stateMutability": "view",
+  		"stateMutability": "nonpayable",
   		"type": "function"
   	},
   	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "",
-  				"type": "bytes32"
-  			}
-  		],
-  		"name": "alreadySubmitted",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "bool"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
+  		"constant": false,
   		"inputs": [],
-  		"name": "getCurrentSessionNumber",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
+  		"name": "executeSubmissions",
+  		"outputs": [],
   		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "arbitrator",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "address"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
+  		"stateMutability": "nonpayable",
   		"type": "function"
   	},
   	{
@@ -253,200 +135,6 @@
   		"type": "function"
   	},
   	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "sessions",
-  		"outputs": [
-  			{
-  				"name": "ruling",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "disputeID",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "sumDeposit",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "status",
-  				"type": "uint8"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "shadowWinner",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "_session",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_round",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "getRoundInfo",
-  		"outputs": [
-  			{
-  				"name": "paidFees",
-  				"type": "uint256[]"
-  			},
-  			{
-  				"name": "hasPaid",
-  				"type": "bool[]"
-  			},
-  			{
-  				"name": "feeRewards",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "successfullyPaid",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": false,
-  		"inputs": [],
-  		"name": "executeSubmissions",
-  		"outputs": [],
-  		"payable": false,
-  		"stateMutability": "nonpayable",
-  		"type": "function"
-  	},
-  	{
-  		"constant": false,
-  		"inputs": [
-  			{
-  				"name": "_submissionTimeout",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "changeSubmissionTimeout",
-  		"outputs": [],
-  		"payable": false,
-  		"stateMutability": "nonpayable",
-  		"type": "function"
-  	},
-  	{
-  		"constant": false,
-  		"inputs": [
-  			{
-  				"name": "_sharedMultiplier",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "changeSharedMultiplier",
-  		"outputs": [],
-  		"payable": false,
-  		"stateMutability": "nonpayable",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "loserMultiplier",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "winnerMultiplier",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "withdrawTimeout",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "_listID",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "_transactionIndex",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "getTransactionInfo",
-  		"outputs": [
-  			{
-  				"name": "target",
-  				"type": "address"
-  			},
-  			{
-  				"name": "value",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "data",
-  				"type": "bytes"
-  			},
-  			{
-  				"name": "executed",
-  				"type": "bool"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
   		"constant": false,
   		"inputs": [
   			{
@@ -461,173 +149,21 @@
   		"type": "function"
   	},
   	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "submissionDeposit",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "submissions",
-  		"outputs": [
-  			{
-  				"name": "submitter",
-  				"type": "address"
-  			},
-  			{
-  				"name": "deposit",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "listHash",
-  				"type": "bytes32"
-  			},
-  			{
-  				"name": "submissionTime",
-  				"type": "uint256"
-  			},
-  			{
-  				"name": "approved",
-  				"type": "bool"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
   		"constant": false,
   		"inputs": [
   			{
-  				"name": "_submissionID",
+  				"name": "_disputeID",
   				"type": "uint256"
   			},
   			{
-  				"name": "_listHash",
-  				"type": "bytes32"
+  				"name": "_ruling",
+  				"type": "uint256"
   			}
   		],
-  		"name": "withdrawTransactionList",
+  		"name": "rule",
   		"outputs": [],
   		"payable": false,
   		"stateMutability": "nonpayable",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "getNumberOfCreatedLists",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "submissionTimeout",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "sharedMultiplier",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "MULTIPLIER_DIVISOR",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [
-  			{
-  				"name": "_listID",
-  				"type": "uint256"
-  			}
-  		],
-  		"name": "getNumberOfTransactions",
-  		"outputs": [
-  			{
-  				"name": "txCount",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "getSumOfDeposits",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
-  		"type": "function"
-  	},
-  	{
-  		"constant": true,
-  		"inputs": [],
-  		"name": "lastApprovalTime",
-  		"outputs": [
-  			{
-  				"name": "",
-  				"type": "uint256"
-  			}
-  		],
-  		"payable": false,
-  		"stateMutability": "view",
   		"type": "function"
   	},
   	{
@@ -648,17 +184,60 @@
   			{
   				"name": "_dataSize",
   				"type": "uint256[]"
+  			},
+  			{
+  				"name": "_description",
+  				"type": "string"
   			}
   		],
   		"name": "submitList",
-  		"outputs": [
+  		"outputs": [],
+  		"payable": true,
+  		"stateMutability": "payable",
+  		"type": "function"
+  	},
+  	{
+  		"constant": false,
+  		"inputs": [
   			{
-  				"name": "submissionID",
+  				"name": "_beneficiary",
+  				"type": "address"
+  			},
+  			{
+  				"name": "_session",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_round",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_submissionID",
   				"type": "uint256"
   			}
   		],
-  		"payable": true,
-  		"stateMutability": "payable",
+  		"name": "withdrawFeesAndRewards",
+  		"outputs": [],
+  		"payable": false,
+  		"stateMutability": "nonpayable",
+  		"type": "function"
+  	},
+  	{
+  		"constant": false,
+  		"inputs": [
+  			{
+  				"name": "_submissionID",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_listHash",
+  				"type": "bytes32"
+  			}
+  		],
+  		"name": "withdrawTransactionList",
+  		"outputs": [],
+  		"payable": false,
+  		"stateMutability": "nonpayable",
   		"type": "function"
   	},
   	{
@@ -704,6 +283,28 @@
   		"payable": true,
   		"stateMutability": "payable",
   		"type": "fallback"
+  	},
+  	{
+  		"anonymous": false,
+  		"inputs": [
+  			{
+  				"indexed": true,
+  				"name": "_listID",
+  				"type": "uint256"
+  			},
+  			{
+  				"indexed": true,
+  				"name": "_submitter",
+  				"type": "address"
+  			},
+  			{
+  				"indexed": false,
+  				"name": "_description",
+  				"type": "string"
+  			}
+  		],
+  		"name": "ListSubmitted",
+  		"type": "event"
   	},
   	{
   		"anonymous": false,
@@ -797,6 +398,440 @@
   		],
   		"name": "Ruling",
   		"type": "event"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "",
+  				"type": "bytes32"
+  			}
+  		],
+  		"name": "alreadySubmitted",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "bool"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "arbitrator",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "address"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "arbitratorExtraData",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "bytes"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "_session",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_round",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_contributor",
+  				"type": "address"
+  			}
+  		],
+  		"name": "getContributions",
+  		"outputs": [
+  			{
+  				"name": "contributions",
+  				"type": "uint256[]"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "getCurrentSessionNumber",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "getExpendableFunds",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "getNumberOfCreatedLists",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "_listID",
+  				"type": "uint256"
+  			}
+  		],
+  		"name": "getNumberOfTransactions",
+  		"outputs": [
+  			{
+  				"name": "txCount",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "_session",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_round",
+  				"type": "uint256"
+  			}
+  		],
+  		"name": "getRoundInfo",
+  		"outputs": [
+  			{
+  				"name": "paidFees",
+  				"type": "uint256[]"
+  			},
+  			{
+  				"name": "hasPaid",
+  				"type": "bool[]"
+  			},
+  			{
+  				"name": "feeRewards",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "successfullyPaid",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "_session",
+  				"type": "uint256"
+  			}
+  		],
+  		"name": "getSubmittedLists",
+  		"outputs": [
+  			{
+  				"name": "submittedLists",
+  				"type": "uint256[]"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "_listID",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "_transactionIndex",
+  				"type": "uint256"
+  			}
+  		],
+  		"name": "getTransactionInfo",
+  		"outputs": [
+  			{
+  				"name": "target",
+  				"type": "address"
+  			},
+  			{
+  				"name": "value",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "data",
+  				"type": "bytes"
+  			},
+  			{
+  				"name": "executed",
+  				"type": "bool"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "lastApprovalTime",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "loserMultiplier",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "MULTIPLIER_DIVISOR",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "reservedETH",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"name": "sessions",
+  		"outputs": [
+  			{
+  				"name": "ruling",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "disputeID",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "sumDeposit",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "status",
+  				"type": "uint8"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "shadowWinner",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "sharedMultiplier",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "submissionDeposit",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"name": "submissions",
+  		"outputs": [
+  			{
+  				"name": "submitter",
+  				"type": "address"
+  			},
+  			{
+  				"name": "deposit",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "listHash",
+  				"type": "bytes32"
+  			},
+  			{
+  				"name": "submissionTime",
+  				"type": "uint256"
+  			},
+  			{
+  				"name": "approved",
+  				"type": "bool"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "submissionTimeout",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "winnerMultiplier",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
+  	},
+  	{
+  		"constant": true,
+  		"inputs": [],
+  		"name": "withdrawTimeout",
+  		"outputs": [
+  			{
+  				"name": "",
+  				"type": "uint256"
+  			}
+  		],
+  		"payable": false,
+  		"stateMutability": "view",
+  		"type": "function"
   	}
   ]
 }

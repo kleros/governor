@@ -8,6 +8,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 24px;
+  margin-top: 25px;
   padding: 34px 10px;
 `
 const StyledActionsDiv = styled(StyledDiv)`
@@ -38,7 +39,7 @@ const StyledButton = styled(Button)`
   width: 20%;
 `
 
-const ActionFooter = ({ action, buttonText, heading, subtext, tertiaryText }) => {
+const ActionFooter = ({ action, buttonText, heading, subtext, tertiaryText, disabled }) => {
   return (
     <StyledActionsDiv>
       <StyledHeading>
@@ -51,7 +52,7 @@ const ActionFooter = ({ action, buttonText, heading, subtext, tertiaryText }) =>
         { tertiaryText }
       </StyledSubtext>
       { action ? (
-        <StyledButton onClick={action} type="primary">
+        <StyledButton onClick={action} type="primary" disabled={disabled}>
           {buttonText}
         </StyledButton>
       ) : ''}
