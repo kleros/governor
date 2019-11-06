@@ -273,6 +273,10 @@
   			{
   				"name": "_loserMultiplier",
   				"type": "uint256"
+  			},
+  			{
+  				"name": "_metaEvidence",
+  				"type": "string"
   			}
   		],
   		"payable": false,
@@ -296,6 +300,11 @@
   				"indexed": true,
   				"name": "_submitter",
   				"type": "address"
+  			},
+  			{
+  				"indexed": false,
+  				"name": "_session",
+  				"type": "uint256"
   			},
   			{
   				"indexed": false,

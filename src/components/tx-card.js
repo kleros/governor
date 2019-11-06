@@ -45,7 +45,7 @@ const TxCard = ({ tx, number = 1 }) => {
         </TxTitle>
       </TxCardHeader>
       <TxCardBody>
-        { `Tx=(${tx.address},${tx.amount},${tx.data})` }
+        { `Tx=(${tx.address},${tx.amount || tx.value},${tx.data})` }
       </TxCardBody>
     </TxCardContainer>
   )

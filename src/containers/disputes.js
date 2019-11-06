@@ -46,13 +46,12 @@ const MyLists = () => {
   }))
   const { send, status } = useCacheSend('KlerosGovernor', 'withdrawTransactionList')
 
-  const myLists = useCacheCall(['KlerosGovernor'], call => {
+  const lists = useCacheCall(['KlerosGovernor'], call => {
     const myListEvents = useCacheEvents(
       'KlerosGovernor',
       'ListSubmitted',
       useMemo(
         () => ({
-          filter: { _submitter: drizzleState.account },
           fromBlock: 0
         }),
         [drizzleState.account]
@@ -140,8 +139,8 @@ const MyLists = () => {
     'disputed': [],
     'closed': []
   }
-  if (currentSessionNumber && myLists) {
-    myLists.forEach(_list => {
+  if (currentSessionNumber && lists) {
+    lists.forEach(_list => {
       if (!_list) return
       if (Number(_list.session) === Number(currentSessionNumber) && Number(_list.status) === 0)
         filteredLists.active.push(_list)
@@ -155,59 +154,20 @@ const MyLists = () => {
   return (
     <>
       <TopBanner
-        description="These are your proposed lists to be executed."
-        title="My Lists"
-        extra={(
-          <StyledRadioGroup
-            buttonStyle="solid"
-            name="filter"
-            value={tab}
-            onChange={(e) => {setTab(e.target.value)}}
-          >
-            <Radio.Button value={'active'}>Open Lists</Radio.Button>
-            <Radio.Button value={'disputed'}>In Dispute</Radio.Button>
-            <Radio.Button value={'closed'}>Executed</Radio.Button>
-          </StyledRadioGroup>
-        )}
+        description="These are the lists in disputes"
+        title="Disputes"
       />
       {
-        filteredLists && filteredLists[tab].map(l => l && !l.withdrawn && (
+        filteredLists && filteredLists['disputed'].map(l => l && !l.withdrawn && (
           <>
             <List txs={l.txs} number={l.listID} submitter={drizzleState.account} />
-            {
-              tab === 'active' ?
-                getTimeRemaining(l.submittedAt, withdrawTimeout || 0) ? (
-                    <ActionFooter
-                      action={(e) => {
-                        e.preventDefault()
-                        send(l.submissionID, l.listHash)
-                      }}
-                      buttonText={'Withdraw List'}
-                      heading={'The list was submitted'}
-                      subtext={`After submitting the list you have ${Number(withdrawTimeout) / 60} minutes to withdraw it if you notice someone has already posted a similar list. This way you can avoid getting into a dispute.`}
-                      tertiaryText={(
-                        <TimeAgo>{getTimeRemaining(l.submittedAt, withdrawTimeout || 0)}</TimeAgo>
-                      )}
-                    />
-                ) : (
-                  <ActionFooter
-                    heading={'The list was submitted'}
-                    subtext={`At the end of the week, if there is only one list of TXs, this list gets executed. If there are more, a dispute is created. The TXs of winning list are executed and its submitter gets the deposit of the parties who made different submissions minus arbitration fees. If the winning list had duplicates, the first submitter gets the reward.`}
-                  />
-                )
-             :
-              tab === 'disputed' ? (
-                <ActionFooter
-                  heading={'This list is being evaluated by jurors'}
-                  subtext={`If the jurors approve your list you win the other parties deposit - arbitration fees. If the jurors approve other list, you lose your deposit. You will be informed of the result soon. `}
-                />
-              ) : (
-                <div/>
-              )
-            }
           </>
         ))
       }
+      <ActionFooter
+        heading={'This list is being evaluated by jurors'}
+        subtext={`If the jurors approve your list you win the other parties deposit - arbitration fees. If the jurors approve other list, you lose your deposit. You will be informed of the result soon. `}
+      />
     </>
   )
 }

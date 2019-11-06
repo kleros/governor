@@ -21,7 +21,6 @@ const Home = () => {
       'KlerosGovernor',
       'getCurrentSessionNumber'
     )
-
     // Need to make sure it's undefined, 0 === !_currentSessionNumber.
     if (typeof _currentSessionNumber !== 'undefined') {
       const _sessionLists = call(
@@ -29,27 +28,22 @@ const Home = () => {
         'getSubmittedLists',
         _currentSessionNumber
       )
-
       if (_sessionLists) {
         return _sessionLists.map(_listID => {
           const titlesEvent = useCacheEvents(
             'KlerosGovernor',
             'ListSubmitted',
-            useMemo(
-              () => ({
-                filter: { _listID },
-                fromBlock: 0
-              }),
-              [_listID]
-            ))
-
+            {
+              filter: { _listID },
+              fromBlock: 0
+            }
+          )
           const numberOfTxs = call(
             'KlerosGovernor',
             'getNumberOfTransactions',
             _listID
           )
-
-          if (numberOfTxs && titlesEvent) {
+          if (numberOfTxs && titlesEvent && titlesEvent.length > 0) {
             const titles = titlesEvent[0].returnValues._description.split(',')
             const submitter = titlesEvent[0].returnValues._submitter
             const txs = []
@@ -60,7 +54,6 @@ const Home = () => {
                 _listID,
                 i
               )
-
               if (txInfo) {
                 txs.push(
                   {
@@ -75,7 +68,8 @@ const Home = () => {
 
             return {
               submitter,
-              txs
+              txs,
+              listID: _listID
             }
           }
         })
@@ -103,8 +97,8 @@ const Home = () => {
       <SubmittedListsCard />
       {
         (lists && lists.length > 0 && lists[0]) ? (
-          lists.map(list => (
-            <List txs={list.txs} submitter={list.submitter} />
+          lists.map(list => list && (
+            <List txs={list.txs} number={list.listID} submitter={list.submitter} />
           ))
         ) : ''
       }
