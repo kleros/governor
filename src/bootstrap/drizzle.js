@@ -1,5 +1,6 @@
 import { Drizzle, generateStore } from 'drizzle'
 import Governor from '../assets/contracts/governor.json'
+import KlerosLiquid from '../assets/contracts/kleros-liquid.json'
 
 const options = {
   contracts: [
@@ -7,6 +8,12 @@ const options = {
       ...Governor,
       networks: {
         42: { address: process.env.REACT_APP_KOVAN_GOVERNOR }
+      }
+    },
+    {
+      ...KlerosLiquid,
+      networks: {
+        42: { address: process.env.REACT_APP_KOVAN_KLEROS_LIQUID }
       }
     }
   ],

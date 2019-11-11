@@ -9,7 +9,6 @@ const SubmitterDiv = styled.div`
 `
 
 const List = ({ txs = [], number = 1, submitter = '' }) => {
-  console.log(txs)
   return (
     <>
       {

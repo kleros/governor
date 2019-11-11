@@ -78,7 +78,7 @@ const StyledTimeAgo = styled(TimeAgo)`
   font-size: 18px;
 `
 
-const SubmittedListsCard = () => {
+const SubmittedListsCard = ({ status }) => {
   // Import our Drizzle cache loader
   const { useCacheCall } = useDrizzle()
 
@@ -130,15 +130,21 @@ const SubmittedListsCard = () => {
             list gets executed. If there are more, a dispute is created. The TXs
             of winning list are executed and its submitter gets the deposit of
             the parties who made different submissions minus arbitration fees.
-            If the winning list had duplicates, the first submitter gets the
-            reward.
           </HowItWorksText>
         </StyledCenterCol>
         <StyledLightPurpleCol lg={6}>
-          <StyledTimeout>
-            <div>List submission</div>
-            <StyledTimeAgo>{timeout}</StyledTimeAgo>
-          </StyledTimeout>
+          {
+            Number(status) === 0 ? (
+              <StyledTimeout>
+                <div>List submission</div>
+                <StyledTimeAgo>{timeout}</StyledTimeAgo>
+              </StyledTimeout>
+            ) : Number(status) === 1 ? (
+              <StyledTimeout>
+                <div>Dispute Ongoing</div>
+              </StyledTimeout>
+            ) : ''
+          }
         </StyledLightPurpleCol>
       </Row>
     </StyledContainer>

@@ -41,12 +41,6 @@ const MyLists = loadable(
     fallback: <StyledSpin />
   }
 )
-const Disputes = loadable(
-  () => import(/* webpackPrefetch: true */ '../containers/disputes'),
-  {
-    fallback: <StyledSpin />
-  }
-)
 const MenuItems = [
   <Menu.Item key="home">
     <NavLink to="/">Home</NavLink>
@@ -54,9 +48,6 @@ const MenuItems = [
   <Menu.Item key="lists">
     <NavLink to="/lists">My Lists</NavLink>
   </Menu.Item>,
-  <Menu.Item key="disputes">
-    <NavLink to="/disputes">Disputes</NavLink>
-  </Menu.Item>
 ]
 
 const StyledLayoutSider = styled(Layout.Sider)`
@@ -139,7 +130,6 @@ export default () => (
                   <Route component={Home} exact path="/" />
                   <Route component={NewList} exact path="/new-list" />
                   <Route component={MyLists} exact path="/lists" />
-                  <Route component={Disputes} exact path="/disputes" />
                   <Route component={C404} />
                 </Switch>
               </StyledLayoutContent>

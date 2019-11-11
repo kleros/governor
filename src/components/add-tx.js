@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { useDrizzle, useDrizzleState } from '../bootstrap/drizzle-react-hooks'
+import { orderParametersByHash } from '../utils/tx-hash'
 
 import List from './list'
 import ActionFooter from './action-footer'
@@ -94,8 +95,6 @@ const AddTx = Form.create()(({ form }) => {
           ...values
         }
         _newValues.amount = drizzle.web3.utils.toWei(String(Number(_newValues.amount)))
-        console.log(_newValues.data)
-        console.log(_newValues.data.length)
         txs.push(_newValues)
         setTxs(
           txs
@@ -108,32 +107,9 @@ const AddTx = Form.create()(({ form }) => {
   }
 
   const submitTxSet = () => {
-    const _addresses = []
-    const _values = []
-    let _data = ''
-    const _dataSizes = []
-    let _titles = ''
+    const { addresses, values, data, dataSizes, titles } = orderParametersByHash(txs)
 
-    txs.forEach(tx => {
-      _addresses.push(
-        tx.address
-      )
-      _values.push(
-        tx.amount
-      )
-      // Remove 0x from byte string
-      // if (tx.data.length > 1 && tx.data.substring(0,2) === '0x') {
-      //   tx.data = tx.data.substr(2)
-      // }
-      _data += tx.data
-      _dataSizes.push(
-        tx.data.length - 2
-      )
-
-      _titles += tx.title + ','
-    })
-
-    send(_addresses, _values, _data, _dataSizes, _titles, {
+    send(addresses, values, data, dataSizes, titles, {
       value: costPerTx * txs.length
     })
   }

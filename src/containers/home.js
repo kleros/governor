@@ -2,6 +2,8 @@ import { Button } from 'antd'
 import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import ActionFooter from '../components/action-footer'
+import Crowdfunding from '../components/crowdfunding'
 import TopBanner from '../components/top-banner'
 import SubmittedListsCard from '../components/submitted-lists-card'
 import List from '../components/list'
@@ -16,17 +18,15 @@ const StyledButton = styled(Button)`
 const Home = () => {
   const { drizzle, useCacheCall, useCacheEvents } = useDrizzle()
 
-  const lists = useCacheCall(['KlerosGovernor'], call => {
-    const _currentSessionNumber = call(
-      'KlerosGovernor',
-      'getCurrentSessionNumber'
-    )
+  const currentSessionNumber = useCacheCall('KlerosGovernor', 'getCurrentSessionNumber')
+  const session = currentSessionNumber && useCacheCall('KlerosGovernor', 'sessions', currentSessionNumber)
+  const lists = currentSessionNumber && useCacheCall(['KlerosGovernor'], call => {
     // Need to make sure it's undefined, 0 === !_currentSessionNumber.
-    if (typeof _currentSessionNumber !== 'undefined') {
+    if (typeof currentSessionNumber !== 'undefined') {
       const _sessionLists = call(
         'KlerosGovernor',
         'getSubmittedLists',
-        _currentSessionNumber
+        currentSessionNumber
       )
       if (_sessionLists) {
         return _sessionLists.map(_listID => {
@@ -77,6 +77,8 @@ const Home = () => {
     }
   })
 
+  const crowdfunding  = true
+
   return (
     <>
       <TopBanner
@@ -94,12 +96,22 @@ const Home = () => {
         }
         title="Welcome to Kleros Governor"
       />
-      <SubmittedListsCard />
+      <SubmittedListsCard status={session ? session.status : 0} />
       {
         (lists && lists.length > 0 && lists[0]) ? (
           lists.map(list => list && (
             <List txs={list.txs} number={list.listID} submitter={list.submitter} />
           ))
+        ) : ''
+      }
+      {
+        session && session.status === '1' ? crowdfunding ? (
+          <Crowdfunding lists={lists} session={currentSessionNumber} disputeID={session.disputeID} />
+        ) : (
+          <ActionFooter
+            heading={'This list is being evaluated by jurors'}
+            subtext={`If the jurors approve your list you win the other parties deposit - arbitration fees. If the jurors approve other list, you lose your deposit. You will be informed of the result soon. `}
+          />
         ) : ''
       }
     </>
