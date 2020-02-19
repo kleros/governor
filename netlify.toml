@@ -1,7 +1,8 @@
 [build.environment]
   YARN_FLAGS='--pure-lockfile'
   REACT_APP_CONTEXT='staging'
-  REACT_APP_KOVAN_GOVERNOR='0xe20e2C9179Dd69A5fE14B714d84F3067119A04E7'
+  REACT_APP_KOVAN_KLEROS_LIQUID='0x60b2abfdfad9c0873242f59f2a8c32a3cc682f80'
+  REACT_APP_KOVAN_GOVERNOR="0xBf057BE2b3a47F9C576197851c0Eb840174F5329"
   REACT_APP_USER_SETTINGS_URL='https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/user-settings'
   REACT_APP_JUSTIFICATIONS_URL='https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/justifications'
   REACT_APP_WEB3_FALLBACK_URL='wss://kovan.infura.io/v3/4e4cf0a867c84ff382e22709aadc1e50'
@@ -11,7 +12,8 @@
   REACT_APP_USER_SETTINGS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/user-settings'
   REACT_APP_JUSTIFICATIONS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/justifications'
   REACT_APP_WEB3_FALLBACK_URL='wss://kovan.infura.io/v3/4e4cf0a867c84ff382e22709aadc1e50'
-
+  REACT_APP_KOVAN_KLEROS_LIQUID='0x988b3a538b618c7a603e1c11ab82cd16dbe28069'
+  
 [[redirects]]
   from = "/*"
   to = "/index.html"
