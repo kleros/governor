@@ -106,7 +106,7 @@ const MyLists = () => {
               txs.push(
                 {
                   title: titles[i],
-                  data: '0x' + (txInfo.data || ''),
+                  data: (txInfo.data || '0x'),
                   address: txInfo.target,
                   value: txInfo.value
                 }

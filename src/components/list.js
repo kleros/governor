@@ -22,7 +22,7 @@ const List = ({ txs = [], number = 1, submitter = '' }) => {
           >
             <Row>
               { txs.map((tx, i) => (
-                <Col lg={12}>
+                <Col lg={12} key={i}>
                   <TxCard tx={tx} number={i+1} />
                 </Col>
               ))}

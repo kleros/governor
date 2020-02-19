@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ActionFooter from '../components/action-footer'
@@ -16,7 +16,7 @@ const StyledButton = styled(Button)`
 `
 
 const Home = () => {
-  const { drizzle, useCacheCall, useCacheEvents } = useDrizzle()
+  const { useCacheCall, useCacheEvents } = useDrizzle()
 
   const currentSessionNumber = useCacheCall('KlerosGovernor', 'getCurrentSessionNumber')
   const session = currentSessionNumber && useCacheCall('KlerosGovernor', 'sessions', currentSessionNumber)
@@ -58,7 +58,7 @@ const Home = () => {
                 txs.push(
                   {
                     title: titles[i],
-                    data: '0x' + (txInfo.data || ''),
+                    data: (txInfo.data || '0x'),
                     address: txInfo.target,
                     value: txInfo.value
                   }
@@ -84,7 +84,7 @@ const Home = () => {
       <TopBanner
         description="Submit a list of decisions to be executed"
         extra={
-          <Link to="/">
+          <div>
             <StyledButton
               size="large"
               style={{ maxWidth: '150px' }}
@@ -92,7 +92,7 @@ const Home = () => {
             >
               <Link to="/new-list">Create New List</Link>
             </StyledButton>
-          </Link>
+          </div>
         }
         title="Welcome to Kleros Governor"
       />
@@ -100,7 +100,7 @@ const Home = () => {
       {
         (lists && lists.length > 0 && lists[0]) ? (
           lists.map(list => list && (
-            <List txs={list.txs} number={list.listID} submitter={list.submitter} />
+            <List key={list.listID} txs={list.txs} number={list.listID} submitter={list.submitter} />
           ))
         ) : ''
       }

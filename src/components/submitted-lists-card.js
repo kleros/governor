@@ -137,7 +137,7 @@ const SubmittedListsCard = ({ status }) => {
             Number(status) === 0 ? (
               <StyledTimeout>
                 <div>List submission</div>
-                <StyledTimeAgo>{timeout}</StyledTimeAgo>
+                <StyledTimeAgo>{timeout || new Date()}</StyledTimeAgo>
               </StyledTimeout>
             ) : Number(status) === 1 ? (
               <StyledTimeout>

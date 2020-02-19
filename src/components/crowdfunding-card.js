@@ -2,6 +2,7 @@ import { Icon, Row, Col, Card, Progress } from 'antd'
 import React from 'react'
 import ReactBlockies from 'react-blockies'
 import { useDrizzle, useDrizzleState } from '../bootstrap/drizzle-react-hooks'
+import TimeAgo from './time-ago'
 
 import styled from 'styled-components'
 
@@ -46,14 +47,18 @@ const StyledProgress = styled(Progress)`
     }
   }
 `
+const Deadline = styled.div`
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 16px;
+  color: #F60C36;
+`
 
-const CrowdfundingCard = ({ list, isFunded, currentAmount, winner }) => {
+const CrowdfundingCard = ({ list, isFunded, currentAmount, winner, totalFee, winnerMultiplier, loserMultiplier, winnerDeadline, loserDeadline }) => {
   const { drizzle, useCacheCall, useCacheEvents } = useDrizzle()
   const drizzleState = useDrizzleState(drizzleState => ({
     account: drizzleState.accounts[0]
   }))
-
-  console.log(list)
 
   return (
     <StyledCrowdfundingCard>
@@ -81,10 +86,20 @@ const CrowdfundingCard = ({ list, isFunded, currentAmount, winner }) => {
         List { list && list.listID }
       </div>
       <Row>
-        <StyledProgress percent={30} showInfo={false} />
+        <StyledProgress percent={Number(currentAmount) / Number(totalFee) * 100} showInfo={false} />
       </Row>
-      <StyledText>If this side wins, you can receive 4/3's of your contribution</StyledText>
-      <StyledHeading>33% Reward</StyledHeading>
+      <StyledText>If this side wins, you can receive your contribution multiplied by {winner ? `${(1 + Number(winnerMultiplier)/Number(loserMultiplier)).toFixed(2)}` : `${(1 + Number(loserMultiplier)/Number(winnerMultiplier)).toFixed(2)}`}</StyledText>
+      <StyledHeading>{winner ? `${(1 + Number(winnerMultiplier)/Number(loserMultiplier)).toFixed(2)}x` : `${(1 + Number(loserMultiplier)/Number(winnerMultiplier)).toFixed(2)}x`} Reward</StyledHeading>
+      <Deadline>
+        <Row>
+          <Col lg={2}>
+            <Icon type="clock-circle" />
+          </Col>
+          <Col lg={22}>
+            <span>{winner ? `Winner Deadline ` : `Loser Deadline `} <br/><TimeAgo>{winner ? winnerDeadline : loserDeadline}</TimeAgo></span>
+          </Col>
+        </Row>
+       </Deadline>
     </StyledCrowdfundingCard>
   )
 }

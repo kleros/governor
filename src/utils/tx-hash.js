@@ -2,12 +2,8 @@ import Web3 from 'web3'
 
 export const txHash = (target, value, data) => {
   const web3 = new Web3()
-  console.log(Web3.utils.soliditySha3(
-    String(target) + String(web3.eth.abi.encodeParameter('uint256', value)) + String(data)
-  ))
-
   return Web3.utils.soliditySha3(
-    String(target) + String(web3.eth.abi.encodeParameter('uint256', value)) + String(data)
+    target, value, data
   )
 }
 
@@ -35,7 +31,7 @@ export const orderParametersByHash = (txs) => {
     addresses.push(txs[i].address)
     values.push(txs[i].amount)
     data += txs[i].data
-    dataSizes.push(txs[i].data.length)
+    dataSizes.push(txs[i].data.length / 2)
     titles += txs[i].title + ','
   })
 
