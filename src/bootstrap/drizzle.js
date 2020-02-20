@@ -7,13 +7,15 @@ const options = {
     {
       ...Governor,
       networks: {
-        42: { address: process.env.REACT_APP_KOVAN_GOVERNOR }
+        42: { address: process.env.REACT_APP_KOVAN_GOVERNOR },
+        1: { address: process.env.REACT_APP_GOVERNOR}
       }
     },
     {
       ...KlerosLiquid,
       networks: {
-        42: { address: process.env.REACT_APP_KOVAN_KLEROS_LIQUID }
+        42: { address: process.env.REACT_APP_KOVAN_KLEROS_LIQUID },
+        1: { address: process.env.REACT_APP_KLEROS_LIQUID }
       }
     }
   ],
