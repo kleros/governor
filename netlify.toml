@@ -13,14 +13,8 @@
   REACT_APP_JUSTIFICATIONS_URL='https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/justifications'
   REACT_APP_WEB3_FALLBACK_URL='wss://kovan.infura.io/v3/4e4cf0a867c84ff382e22709aadc1e50'
   REACT_APP_KOVAN_KLEROS_LIQUID='0x988b3a538b618c7a603e1c11ab82cd16dbe28069'
-  
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[redirects]]
-  from = "https://kleros-governor.netlify.com/*"
-  to = "https://governor.kleros.io/:splat"
-  status = 301
-  force = true
