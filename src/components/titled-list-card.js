@@ -68,7 +68,7 @@ const StyledDivider = styled.div`
   margin: 0;
   width: 100%;
 `
-const TitledListCard = ({ children, loading, prefix, title, extra }) => (
+const TitledListCard = ({ children, loading, prefix, title, extra, white }) => (
   <StyledCard
     bordered={false}
     loading={loading}
@@ -81,6 +81,7 @@ const TitledListCard = ({ children, loading, prefix, title, extra }) => (
         <StyledUnderline className="primary-fill" />
       </>
     }
+    style={white ? {background: 'white'} : {}}
   >
     {children &&
       (children.length === undefined

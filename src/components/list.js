@@ -2,12 +2,12 @@ import { Row, Col } from 'antd'
 import React from 'react'
 import TitledListCard from './titled-list-card'
 import TxCard from './tx-card'
+import ListItem from './list-item'
 import styled from 'styled-components'
 
 const SubmitterDiv = styled.div`
   color: #fff;
 `
-
 const List = ({ txs = [], number = 1, submitter = '' }) => {
   return (
     <>
@@ -19,6 +19,7 @@ const List = ({ txs = [], number = 1, submitter = '' }) => {
             extra={(
               <SubmitterDiv>Submitter {submitter}</SubmitterDiv>
             )}
+            white={false}
           >
             <Row>
               { txs.map((tx, i) => (
@@ -28,7 +29,20 @@ const List = ({ txs = [], number = 1, submitter = '' }) => {
               ))}
             </Row>
           </TitledListCard>
-        ) : ''
+        ) : (
+          <TitledListCard
+            title={`List ${number}`}
+            prefix={'Txs'}
+            extra={(
+              <SubmitterDiv>Submitter {submitter}</SubmitterDiv>
+            )}
+            white={true}
+          >
+            <ListItem>
+              This list is empty. It signifies no changes for this session.
+            </ListItem>
+          </TitledListCard>
+        )
       }
     </>
   )

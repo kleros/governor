@@ -107,11 +107,17 @@ const AddTx = Form.create()(({ form }) => {
   }
 
   const submitTxSet = () => {
-    const { addresses, values, data, dataSizes, titles } = orderParametersByHash(txs)
+    if (txs.length > 0) {
+      const { addresses, values, data, dataSizes, titles } = orderParametersByHash(txs)
 
-    send(addresses, values, data, dataSizes, titles, {
-      value: costPerTx * txs.length
-    })
+      send(addresses, values, data, dataSizes, titles, {
+        value: costPerTx
+      })
+    } else {
+      send([], [], '0x', [], '', {
+        value: costPerTx
+      })
+    }
   }
 
   return (
@@ -252,10 +258,9 @@ const AddTx = Form.create()(({ form }) => {
         subtext={'After submitting the list you have 1 hour to withdraw it if you notice someone has already posted a similar list. This way you can avoid getting into a dispute.'}
         tertiaryText={
           <>
-            Deposit required = <ETHAmount amount={(costPerTx || 0) * txs.length} decimals={2} /> ETH
+            Deposit required = <ETHAmount amount={(costPerTx || 0)} decimals={2} /> ETH
           </>
       }
-        disabled={txs.length === 0}
       />
     </Form>
   )
