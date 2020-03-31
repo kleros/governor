@@ -1,10 +1,12 @@
 import { Row, Col, Button } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
-
+import { useDrizzle } from '../bootstrap/drizzle-react-hooks'
 import AragonLogo from '../assets/images/aragon-logo.png'
+import { displayDateUTC } from '../utils/date'
 
 const AragonBannerContainer = styled.div`
+  background: #F5F1FD;
   border-radius: 12px;
   box-shadow: 0px 6px 36px #BC9CFF;
   color: #4D00B4;
@@ -36,8 +38,16 @@ const AragonLogoImg = styled.img`
   margin-left: 30%;
   margin-top: 10px;
 `
+const SessionInformation = styled.div`
+  font-size: 13px;
+  line-height: 15px;
+  margin-top: 10px;
+`
 
 const AragonBanner = ({}) => {
+  const { useCacheCall } = useDrizzle()
+  const sessionStart = useCacheCall('KlerosGovernor', 'lastApprovalTime')
+
   return (
     <AragonBannerContainer>
       <Row>
@@ -45,6 +55,9 @@ const AragonBanner = ({}) => {
           <Row>
             <Col lg={22}>
               <span>You can find the decisions on <b>Aragon Governance Kleros</b></span>
+              <SessionInformation>
+                <b>Session Start: { sessionStart ? displayDateUTC(sessionStart * 1000) : 'loading...'}.</b> All submitted actions should have been approved and have an execution time (if specified) before the start of the session.
+              </SessionInformation>
             </Col>
             <Col lg={2}>
               <AragonButton><a href="https://governance.kleros.io">Go There</a></AragonButton>
