@@ -86,7 +86,7 @@ const AddTx = Form.create()(({ form }) => {
   }))
   const { send, status } = useCacheSend('KlerosGovernor', 'submitList')
 
-  const costPerTx = useCacheCall('KlerosGovernor', 'submissionDeposit')
+  const costPerTx = useCacheCall('KlerosGovernor', 'submissionBaseDeposit')
 
   const addTXtoSet = () => {
     form.validateFieldsAndScroll(async (err, values) => {
