@@ -86,7 +86,12 @@ const AddTx = Form.create()(({ form }) => {
   }))
   const { send, status } = useCacheSend('KlerosGovernor', 'submitList')
 
-  const costPerTx = useCacheCall('KlerosGovernor', 'submissionBaseDeposit')
+  const submissionBaseDeposit = useCacheCall('KlerosGovernor', 'submissionBaseDeposit')
+  const extraData = useCacheCall('KlerosGovernor', 'arbitratorExtraData')
+  const arbitrationCost = extraData && useCacheCall('KlerosLiquid', 'arbitrationCost', extraData)
+  const costPerTx = submissionBaseDeposit && arbitrationCost && (
+    drizzle.web3.utils.toBN(submissionBaseDeposit).add(drizzle.web3.utils.toBN(arbitrationCost))
+  )
 
   const addTXtoSet = () => {
     form.validateFieldsAndScroll(async (err, values) => {
