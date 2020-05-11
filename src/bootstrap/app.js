@@ -8,7 +8,6 @@ import { ReactComponent as Logo } from '../assets/images/logo.svg'
 import Footer from '../components/footer'
 import React from 'react'
 import loadable from '@loadable/component'
-import { register } from './service-worker'
 import styled from 'styled-components/macro'
 
 const StyledSpin = styled(Spin)`
@@ -141,11 +140,3 @@ export default () => (
     </DrizzleProvider>
   </>
 )
-
-register({
-  onUpdate: () =>
-    message.warning(
-      'An update is ready to be installed. Please close and reopen all tabs.',
-      0
-    )
-})
