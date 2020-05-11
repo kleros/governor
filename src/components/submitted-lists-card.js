@@ -102,14 +102,31 @@ const SubmittedListsCard = ({ status }) => {
     }
   })
 
+  const sessionOffset = useCacheCall(['KlerosGovernor'], call => {
+    const _currentSessionNumber = call(
+      'KlerosGovernor',
+      'getCurrentSessionNumber'
+    )
+
+    if (typeof _currentSessionNumber !== 'undefined') {
+      const session = call(
+        'KlerosGovernor',
+        'sessions',
+        _currentSessionNumber
+      )
+
+      if (session) return session.durationOffset
+    }
+  })
+
   const lastApprovalTime = useCacheCall('KlerosGovernor', 'lastApprovalTime')
 
   const submissionTimeout = useCacheCall('KlerosGovernor', 'submissionTimeout')
 
   let timeout
-  if (lastApprovalTime && submissionTimeout)
+  if (lastApprovalTime && submissionTimeout && sessionOffset >= 0)
     timeout = new Date(
-      (Number(lastApprovalTime) + Number(submissionTimeout)) * 1000
+      (Number(lastApprovalTime) + Number(submissionTimeout) + Number(sessionOffset)) * 1000
     )
 
   return (
