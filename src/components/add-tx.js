@@ -82,7 +82,8 @@ const AddTx = Form.create()(({ form }) => {
   const drizzleState = useDrizzleState(drizzleState => ({
     balance: drizzle.web3.utils.toBN(
       drizzleState.accountBalances[drizzleState.accounts[0]]
-    )
+    ),
+    account: drizzleState.accounts[0]
   }))
   const { send, status } = useCacheSend('KlerosGovernor', 'submitList')
 
@@ -116,7 +117,8 @@ const AddTx = Form.create()(({ form }) => {
       const { addresses, values, data, dataSizes, titles } = orderParametersByHash(txs)
 
       send(addresses, values, data, dataSizes, titles, {
-        value: costPerTx
+        value: costPerTx,
+        from: drizzleState.account
       })
     } else {
       send([], [], '0x', [], '', {
