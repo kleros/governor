@@ -14,25 +14,23 @@ export const orderParametersByHash = (txs) => {
   const dataSizes = []
   let titles = ''
 
-  const _hashes = []
-  txs.forEach(tx => {
+  txs.forEach((tx, i) => {
     // Remove 0x
     if (tx.data.length > 1 && tx.data.substring(0,2) === '0x') {
       tx.data = tx.data.substr(2)
     }
-    _hashes.push(txHash(tx.address, tx.amount, tx.data))
   })
 
-  const _orderedHashes = _hashes.sort((a,b) => parseInt(a) - parseInt(b))
+  const _sortedTxs = txs.sort((a,b) => {
+    return parseInt(txHash(a.address, a.amount, '0x' + a.data), 16) - parseInt(txHash(b.address, b.amount, '0x' + b.data), 16)
+  })
 
-  _orderedHashes.forEach(h => {
-    const i = _hashes.indexOf(h)
-
-    addresses.push(txs[i].address)
-    values.push(txs[i].amount)
-    data += txs[i].data
-    dataSizes.push(txs[i].data.length / 2)
-    titles += txs[i].title + ','
+  _sortedTxs.forEach(tx => {
+    addresses.push(tx.address)
+    values.push(tx.amount)
+    data += tx.data
+    dataSizes.push(tx.data.length / 2)
+    titles += tx.title + ','
   })
 
   return {
