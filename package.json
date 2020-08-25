@@ -21,7 +21,7 @@
     "test": "echo \"\"",
     "cz": "kathari cz",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "build:analyze": "source-map-explorer build/static/js/main.*",
     "build:theme": "lessc --js ./src/components/theme.less ./src/components/theme.css"
   },
