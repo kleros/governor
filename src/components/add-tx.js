@@ -112,6 +112,14 @@ const AddTx = Form.create()(({ form }) => {
     })
   }
 
+  const removeTxFromSet = (itemIndex) => {
+    const txsCopy = [...txs]
+    txsCopy.splice(itemIndex, 1)
+    setTxs(
+      txsCopy
+    )
+  }
+
   const submitTxSet = () => {
     if (txs.length > 0) {
       const { addresses, values, data, dataSizes, titles } = orderParametersByHash(txs)
@@ -252,7 +260,7 @@ const AddTx = Form.create()(({ form }) => {
       </BackgrounCard>
       {
         txs.length > 0 ? (
-          <List txs={txs} number={1}/>
+          <List txs={txs} number={1} onRemove={removeTxFromSet}/>
         ) : ''
       }
       <ActionFooter

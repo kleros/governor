@@ -8,7 +8,7 @@ import styled from 'styled-components'
 const SubmitterDiv = styled.div`
   color: #fff;
 `
-const List = ({ txs = [], number = 1, submitter = '' }) => {
+const List = ({ txs = [], number = 1, submitter = '', onRemove = null }) => {
   return (
     <>
       {
@@ -24,7 +24,7 @@ const List = ({ txs = [], number = 1, submitter = '' }) => {
             <Row>
               { txs.map((tx, i) => (
                 <Col lg={12} key={i}>
-                  <TxCard tx={tx} number={i+1} />
+                  <TxCard tx={tx} number={i+1} onRemove={onRemove}/>
                 </Col>
               ))}
             </Row>

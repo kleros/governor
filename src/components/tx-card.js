@@ -33,13 +33,22 @@ const TxCardBody = styled.div`
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 `
+const TxRemove = styled.div`
+  position: absolute;
+  right: 45px;
+  top: 8px;
+  cursor: pointer;
+`
 
-const TxCard = ({ tx, number = 1 }) => {
+const TxCard = ({ tx, number, onRemove }) => {
 
   return (
     <TxCardContainer>
       <TxCardHeader>
         <TxNumber>TX {number}</TxNumber>
+        { onRemove ? (
+          <TxRemove onClick={() => onRemove(number - 1)}>X</TxRemove>
+        ) : ''}
         <TxTitle>
           { tx.title }
         </TxTitle>
