@@ -1,5 +1,5 @@
-import { Button, Card, Row, Col, Form, Input, InputNumber } from 'antd'
-import React, { useState, useCallback } from 'react'
+import { Button, Card, Row, Col, Form, Input, InputNumber, Select } from 'antd'
+import React, { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { useDrizzle, useDrizzleState } from '../bootstrap/drizzle-react-hooks'
@@ -78,6 +78,12 @@ const StyledInputNumber = styled(InputNumber)`
 
 const AddTx = Form.create()(({ form }) => {
   const [txs, setTxs] = useState([])
+  // Selected Contract State
+  const [abi, setContractABI] = useState([])
+  const [address, setContractAddress] = useState('')
+  const [methodSelected, setMethodSelected] = useState('')
+  const [methodInputs, setMethodInputs] = useState([])
+
   const { drizzle, useCacheCall, useCacheSend } = useDrizzle()
   const drizzleState = useDrizzleState(drizzleState => ({
     balance: drizzle.web3.utils.toBN(
@@ -100,6 +106,13 @@ const AddTx = Form.create()(({ form }) => {
         const _newValues = {
           ...values
         }
+
+        if (!_newValues.data && methodSelected) {
+          const contractInstance = new drizzle.web3.eth.Contract(abi, address)
+          const _data = contractInstance.methods[methodSelected](...methodInputs).encodeABI()
+          _newValues.data = _data
+        }
+
         _newValues.amount = drizzle.web3.utils.toWei(String(Number(_newValues.amount)))
         txs.push(_newValues)
         setTxs(
@@ -110,6 +123,13 @@ const AddTx = Form.create()(({ form }) => {
         form.resetFields()
       }
     })
+  }
+
+  const resetContractState = () => {
+    setContractABI('')
+    setContractAddress('')
+    setMethodSelected('')
+    setMethodInputs([])
   }
 
   const removeTxFromSet = (itemIndex) => {
@@ -133,6 +153,46 @@ const AddTx = Form.create()(({ form }) => {
         value: costPerTx
       })
     }
+  }
+
+  const getContractABI = async (a) => {
+    if (a !== address) {
+      const network = await drizzle.web3.eth.net.getId()
+      let uri
+      switch (network) {
+        case 1:
+          uri = `https://api.etherscan.io/api?module=contract&action=getabi&address=${a}`
+          break
+        case 42:
+          uri = `https://api-kovan.etherscan.io/api?module=contract&action=getabi&address=${a}`
+          break
+        default:
+          break
+      }
+      if (uri) {
+        const abiQuery = await fetch(
+          uri
+        ).then(response => response.json())
+        if (abiQuery.status === "1") {
+          setContractABI(JSON.parse(abiQuery.result))
+          setContractAddress(a)
+        } else {
+          setContractABI('')
+          setContractAddress('')
+        }
+      }
+    }
+  }
+
+  let contractInstance
+  if (address && abi.length) {
+    contractInstance = new drizzle.web3.eth.Contract(abi, address)
+  }
+
+  let methodInputsList
+  if (methodSelected) {
+    methodInputsList = abi.filter(a => a.name === methodSelected)[0].inputs
+
   }
 
   return (
@@ -184,7 +244,7 @@ const AddTx = Form.create()(({ form }) => {
                   }
                 ]
               })(
-                <StyledInput type="text" placeholder={'To Address'} />
+                <StyledInput type="text" placeholder={'To Address'} onChange={(e) => getContractABI(e.target.value)}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -239,22 +299,81 @@ const AddTx = Form.create()(({ form }) => {
                 />
               )}
             </Form.Item>
-            <Form.Item>
-              {form.getFieldDecorator('data', {
-                rules: [
-                  {
-                    message: "Data required (use 0x for no data)",
-                    validator: (_, _value, callback) => {
-                      if (!_value || _value.length < 1)
-                        return callback(true)
-                      callback()
-                    }
-                  }
-                ]
-              })(
-                <StyledTextArea type="text" placeholder={'Data'} />
-              )}
-            </Form.Item>
+            {
+              contractInstance ? (
+                <Form.Item>
+                  <Input.Group>
+                    <Form.Item
+                      name={['method', 'methodName']}
+                      noStyle
+                    >
+                      <Select placeholder="Select Function" style={{width: '100%'}} onChange={(value) => {
+                          setMethodSelected(value)
+                        }
+                      }>
+                      {
+                        abi.map((abiItem, i) => {
+                          if (!abiItem.constant) {
+                            return (
+                              <Select.Option
+                                value={abiItem.name}
+                              >
+                                {abiItem.name}
+                              </Select.Option>
+                            )
+                          }
+                        })
+                      }
+                      </Select>
+                    </Form.Item>
+                      {
+                        methodSelected ? (
+                          <div>
+                            {
+                              methodInputsList.map((field, i) => {
+                                return (
+                                  <Form.Item
+                                    name={['method', field.name]}
+                                  >
+                                    <Input
+                                      key={field.name}
+                                      type="text"
+                                      placeholder={field.name}
+                                      onChange={(val) => {
+                                        const _inputs = [...methodInputs]
+                                        _inputs.splice(i, 1, val.target.value)
+                                        setMethodInputs(_inputs)
+                                      }}
+                                    />
+                                  </Form.Item>
+                                )
+                              })
+                            }
+                          </div>
+                        )
+                         : ''
+                      }
+                  </Input.Group>
+                </Form.Item>
+              ) : (
+                <Form.Item>
+                  {form.getFieldDecorator('data', {
+                    rules: [
+                      {
+                        message: "Data required (use 0x for no data)",
+                        validator: (_, _value, callback) => {
+                          if (!_value || _value.length < 1)
+                            return callback(true)
+                          callback()
+                        }
+                      }
+                    ]
+                  })(
+                    <StyledTextArea type="text" placeholder={'Data'} />
+                  )}
+                </Form.Item>
+              )
+            }
           </Col>
         </Row>
       </BackgrounCard>
