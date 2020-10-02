@@ -127,6 +127,7 @@ const AddTx = Form.create()(({ form }) => {
 
         // Reset fields so they can add a new tx
         form.resetFields()
+        resetContractState()
       }
     })
   }
@@ -327,7 +328,7 @@ const AddTx = Form.create()(({ form }) => {
                         >
                         {
                           abi.map((abiItem, i) => {
-                            if (!abiItem.constant) {
+                            if (!abiItem.constant && abiItem.type == 'function') {
                               return (
                                 <Select.Option
                                   value={abiItem.name}
