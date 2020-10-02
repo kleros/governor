@@ -75,14 +75,20 @@ const StyledInputNumber = styled(InputNumber)`
     line-height: 16px;
   }
 `
+const SwapInputText = styled.div`
+  color: white;
+  cursor: pointer;
+  font-style: italic;
+`
 
 const AddTx = Form.create()(({ form }) => {
   const [txs, setTxs] = useState([])
   // Selected Contract State
   const [abi, setContractABI] = useState([])
   const [address, setContractAddress] = useState('')
-  const [methodSelected, setMethodSelected] = useState('')
+  const [methodSelected, setMethodSelected] = useState(undefined)
   const [methodInputs, setMethodInputs] = useState([])
+  const [showDataInput, setShowDataInput] = useState(false)
 
   const { drizzle, useCacheCall, useCacheSend } = useDrizzle()
   const drizzleState = useDrizzleState(drizzleState => ({
@@ -190,9 +196,12 @@ const AddTx = Form.create()(({ form }) => {
   }
 
   let methodInputsList
+  let bytecode
   if (methodSelected) {
     methodInputsList = abi.filter(a => a.name === methodSelected)[0].inputs
-
+    try {
+      bytecode = contractInstance.methods[methodSelected](...methodInputs).encodeABI()
+    } catch(e) {}
   }
 
   return (
@@ -300,78 +309,100 @@ const AddTx = Form.create()(({ form }) => {
               )}
             </Form.Item>
             {
-              contractInstance ? (
-                <Form.Item>
-                  <Input.Group>
-                    <Form.Item
-                      name={['method', 'methodName']}
-                      noStyle
-                    >
-                      <Select placeholder="Select Function" style={{width: '100%'}} onChange={(value) => {
-                          setMethodSelected(value)
-                        }
-                      }>
-                      {
-                        abi.map((abiItem, i) => {
-                          if (!abiItem.constant) {
-                            return (
-                              <Select.Option
-                                value={abiItem.name}
-                              >
-                                {abiItem.name}
-                              </Select.Option>
-                            )
-                          }
-                        })
-                      }
-                      </Select>
-                    </Form.Item>
-                      {
-                        methodSelected ? (
-                          <div>
-                            {
-                              methodInputsList.map((field, i) => {
-                                return (
-                                  <Form.Item
-                                    name={['method', field.name]}
-                                  >
-                                    <Input
-                                      key={field.name}
-                                      type="text"
-                                      placeholder={field.name}
-                                      onChange={(val) => {
-                                        const _inputs = [...methodInputs]
-                                        _inputs.splice(i, 1, val.target.value)
-                                        setMethodInputs(_inputs)
-                                      }}
-                                    />
-                                  </Form.Item>
-                                )
-                              })
+              contractInstance && !showDataInput ? (
+                <div>
+                  <Form.Item>
+                    <Input.Group>
+                      <Form.Item
+                        name={['method', 'methodName']}
+                        style={{marginBottom: '10px'}}
+                      >
+                        <Select
+                          placeholder="Select Function"
+                          style={{width: '100%'}}
+                          onChange={(value) => {
+                            setMethodSelected(value)
+                          }}
+                          value={methodSelected}
+                        >
+                        {
+                          abi.map((abiItem, i) => {
+                            if (!abiItem.constant) {
+                              return (
+                                <Select.Option
+                                  value={abiItem.name}
+                                >
+                                  {abiItem.name}
+                                </Select.Option>
+                              )
                             }
-                          </div>
-                        )
-                         : ''
-                      }
-                  </Input.Group>
-                </Form.Item>
-              ) : (
-                <Form.Item>
-                  {form.getFieldDecorator('data', {
-                    rules: [
-                      {
-                        message: "Data required (use 0x for no data)",
-                        validator: (_, _value, callback) => {
-                          if (!_value || _value.length < 1)
-                            return callback(true)
-                          callback()
+                          })
                         }
-                      }
-                    ]
-                  })(
-                    <StyledTextArea type="text" placeholder={'Data'} />
-                  )}
-                </Form.Item>
+                        </Select>
+                      </Form.Item>
+                        {
+                          methodSelected ? (
+                            <div>
+                              {
+                                methodInputsList.map((field, i) => {
+                                  return (
+                                    <Form.Item
+                                      name={['method', field.name]}
+                                    >
+                                      <Input
+                                        key={field.name}
+                                        type="text"
+                                        placeholder={field.name}
+                                        defaultValue={methodInputs[i]}
+                                        onChange={(val) => {
+                                          const _inputs = [...methodInputs]
+                                          _inputs.splice(i, 1, val.target.value)
+                                          setMethodInputs(_inputs)
+                                        }}
+                                      />
+                                    </Form.Item>
+                                  )
+                                })
+                              }
+                            </div>
+                          )
+                           : ''
+                        }
+                    </Input.Group>
+                  </Form.Item>
+                  <SwapInputText onClick={() => {setShowDataInput(true)}}>Use Data Input</SwapInputText>
+                </div>
+              ) : (
+                <div>
+                  <Form.Item>
+                    {form.getFieldDecorator('data', {
+                      initialValue: bytecode,
+                      validateTrigger: ["onBlur"],
+                      rules: [
+                        {
+                          message: "Data required (use 0x for no data)",
+                          validator: (_, _value, callback) => {
+                            if (!_value || _value.length < 1)
+                              return callback(true)
+                            callback()
+                          }
+                        }
+                      ]
+                    })(
+                      <StyledTextArea
+                        type="text"
+                        placeholder={'Data'}
+                        autosize={{ minRows: 3, maxRows: 20 }}
+                        allowClear={true}
+                      />
+                    )}
+                  </Form.Item>
+                  {
+                    contractInstance ? (
+                      <SwapInputText onClick={() => {setShowDataInput(false)}}>Use ABI Input</SwapInputText>
+                    ) : ''
+                  }
+                </div>
               )
             }
           </Col>
