@@ -1,5 +1,5 @@
 import React from 'react'
-import AragonBanner from '../components/aragon-banner'
+import SnapshotBanner from '../components/snapshot-banner'
 import TopBanner from '../components/top-banner'
 import AddTx from '../components/add-tx'
 
@@ -10,7 +10,7 @@ const NewList = ({}) => {
         description="Add TXs to create a list of governor enforcements."
         title="New List"
       />
-      <AragonBanner />
+      <SnapshotBanner />
       <AddTx />
     </>
   )

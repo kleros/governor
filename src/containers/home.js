@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ActionFooter from '../components/action-footer'
 import Crowdfunding from '../components/crowdfunding'
 import TopBanner from '../components/top-banner'
+import SnapshotBanner from '../components/snapshot-banner'
 import SubmittedListsCard from '../components/submitted-lists-card'
 import List from '../components/list'
 import { useDrizzle } from '../bootstrap/drizzle-react-hooks'
@@ -96,6 +97,7 @@ const Home = () => {
         }
         title="Welcome to Kleros Governor"
       />
+      <SnapshotBanner />
       <SubmittedListsCard status={session ? session.status : 0} />
       {
         (lists && lists.length > 0 && lists[0]) ? (
