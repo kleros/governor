@@ -97,7 +97,7 @@ const Home = () => {
         }
         title="Welcome to Kleros Governor"
       />
-      <SnapshotBanner />
+    <SnapshotBanner project={'kleros'} />
       <SubmittedListsCard status={session ? session.status : 0} />
       {
         (lists && lists.length > 0 && lists[0]) ? (

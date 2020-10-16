@@ -46,7 +46,7 @@ const SessionInformation = styled.div`
   margin-top: 10px;
 `
 
-const SnapshotBanner = ({}) => {
+const SnapshotBanner = ({project}) => {
   const { useCacheCall } = useDrizzle()
   const sessionStart = useCacheCall('KlerosGovernor', 'lastApprovalTime')
 
@@ -65,7 +65,7 @@ const SnapshotBanner = ({}) => {
         </SnapshotBannerLeft>
         <SnapshotBannerRight lg={4}>
           <ButtonContainer>
-            <SnapshotButton><a href="https://snapshot.page">Go There</a></SnapshotButton>
+            <SnapshotButton><a href={`https://snapshot.page/#/${project}`}>Go There</a></SnapshotButton>
           </ButtonContainer>
         </SnapshotBannerRight>
       </Row>

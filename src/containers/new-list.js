@@ -10,7 +10,7 @@ const NewList = ({}) => {
         description="Add TXs to create a list of governor enforcements."
         title="New List"
       />
-      <SnapshotBanner />
+      <SnapshotBanner project={'kleros'} />
       <AddTx />
     </>
   )
